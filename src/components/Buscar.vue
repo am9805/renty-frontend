@@ -1,9 +1,9 @@
 <template>
 <div>
   
-<div >  
+<div>  
  
-  <button href="/List" @click="Search" class="btn btn-primary"  >Buscar </button>  
+  <button href="/List" @click="Search"  class="btn btn-primary"  >Buscar </button>  
 </div>
 
 </div>

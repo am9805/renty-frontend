@@ -20,7 +20,7 @@
         <td><img :src="listCars.thumbnail" /></td>
    </div>      
     <div class="btn-detalle">
-        <button href="/List"  class="btn btn-primary"  >Detalle</button>  
+        <button href="/List"  class="btn btn-primary" >Detalle</button>  
    </div> 
 </div>
 
