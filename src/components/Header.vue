@@ -6,8 +6,13 @@
         </div>
         
         <form class="form-inline">
-            <router-link v-if="!user" to="/login">Registrarse/Ingresar</router-link>
-            <router-link v-if="user" to="/profile">{{user.displayName}}</router-link>
+            <div class="form-group">
+                <router-link v-if="user" to="/reservations">Mis Reservas</router-link>
+            </div>
+            <div class="form-group">
+                <router-link v-if="!user" to="/login">Registrarse/Ingresar</router-link>
+                <router-link v-if="user" to="/profile">{{user.displayName}}</router-link>            
+            </div>
         </form>
     </nav>
 </template>
