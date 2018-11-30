@@ -72,13 +72,11 @@
 
 <script>
 import Form from "./Form.vue";
-import Buscar from "./Buscar.vue";
 import Axios from "axios";
 import Details from "./Details.vue";
 export default {
   name: "Home",
   components: {
-    Buscar,
     Form,
     Details
   },
