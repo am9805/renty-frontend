@@ -1,65 +1,115 @@
 <template>
-    <div>
-        <div class="list-group" v-for="listCars in listBooking" :key=listCars.id >
+    <span>
+        <b-modal id="modalsm" size="sm" title="Resultado" ok-only>
+            {{mensaje}}
+        </b-modal>
+        <div class="list-group" v-for="booking in listBooking" :key=booking.id>
+            <h5 class="car-title">{{booking.pickupDate}}</h5>
+            <p class="card-text">Lugar de recogida: {{booking.pickup}}</p>
+            <p class="card-text">Fecha de entrega: {{booking.deliverDate}}</p>
+            <p class="card-text">Información del vehiculo:</p>
+            <p class="card-text subitem">Marca: {{booking.cardId.brand}}</p>
+            <p class="card-text subitem">Tipo: {{booking.cardId.type}}</p>
+            <p class="card-text subitem">Modelo: {{booking.cardId.model}}</p>
+            <p class="card-text subitem">Precio: ${{booking.cardId.price}}</p>
+            <b-btn v-b-modal.modalsm variant="primary" class="btn btn-primary" @click="deleteBooking(booking)">Cancelar reserva</b-btn>
 
-            <h5 class="car-title">{{listCars.brand}}</h5>
-            <p class="card-text">Tipo: {{listCars.type}}</p>
-            <p class="card-text">Modelo: {{listCars.model}}</p>
-            <p class="card-text">Precio: ${{listCars.price}}</p>
             <div class="image">
-                <td><img :src="listCars.thumbnail" /></td>
-            </div>
-            <div class="btn-detalle">
-                <button href="/List"  class="btn btn-primary"  >Detalle</button>
+                <img :src="booking.cardId.thumbnain" alt=""/>
             </div>
         </div>
-    </div>
+    </span>
 </template>
 
 <script>
     import auth from "../services/auth";
     import Axios from "axios";
+    import VueMaterial from 'vue-material'
+    import {MdDialog} from 'vue-material/dist/components'
+    import 'vue-material/dist/vue-material.min.css'
+
 
     export default {
         name: "Booking",
         data() {
             return {
                 listBooking: [],
+                urls: ['https://api.myjson.com/bins/p1up6/',
+                    'https://api.myjson.com/bins/p1up6/',
+                    'https://api.myjson.com/bins/p1up6/'],
+                mensaje: 'Cargando, por favor espere...'
             };
         },
-        created: function() {
+        created: function () {
             auth.user().getIdToken().then(value => {
-                Axios.get(`https://api.myjson.com/bins/1ekwci/?tokenId=${value}`).then(response => {
-                    this.listBooking = response.data;
+                this.urls.forEach(url => {
+                    Axios.get(url + '?tokenId=' + value).then(response => {
+                        let list = response.data;
+                        list.forEach(item => {
+                            item.url = url;
+                            this.listBooking.push(item);
+                        });
+                    });
                 });
             });
+        },
+        methods: {
+            deleteBooking(booking) {
+                Axios.delete(booking.url + booking.bookingId).then(responce => {
+                    this.listBooking = this.listBooking.filter(item => {
+                        return item.bookingId !== booking.bookingId && item.rental.id !== booking.rental.id;
+                    });
+                    this.mensaje = 'Reserva cancelada correctamente';
+                }, error => {
+                    this.mensaje = 'La reserva no pudo ser cancelada, intentalo de nuevo mas tarde';
+                });
+            }
         }
     }
 </script>
 
 <style scoped>
-    .list-group{
-        width: 1300px;
-        height: 200px;
+    .list-group {
+        width: 80%;
         border-radius: 10px;
         background-color: #e8e8e9;
         margin: 1rem;
         margin-left: 8.5%;
         position: relative;
     }
-    .car-title{
+
+    .car-title {
         margin-top: 22px;
         font-family: "Lato", sans-serif;
         font-size: 40px;
         text-align: left;
         margin-left: 15%;
-
     }
-    .card-text{
 
-        font-family:'Raleway', sans-serif;;
+    .card-text {
+        font-family: 'Raleway', sans-serif;;
         font-size: 16px;
         text-align: left;
-        margin-left: 17%;
+        margin-left: 5%;
+    }
+
+    .image {
+        position: absolute;
+        right: 0;
+        width: 30%;
+        height: 80%;
+        margin: 10%;
+    }
+
+    .subitem {
+        margin-left: 7%;
+    }
+
+    .btn-primary {
+        width: 20%;
+        background-color: #dc3545;
+        color: #fff;
+        border-color: #dc3545;
+        margin: 2% 40%;
     }
 </style>
