@@ -23,10 +23,6 @@ let router = new Router({
             redirect: '/home'
         },
         {
-            path: '/home',
-            redirect: '/home'
-        },
-        {
             path: '/login',
             name: 'Login',
             component: Login,
