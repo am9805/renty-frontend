@@ -1,5 +1,5 @@
 <template>
-<div v-if="show">
+<div >
     <div>
       <div>
         <img class="imagen" :src="car.thumbnail" :alt="`${car.brand} - ${car.model}`">
@@ -16,24 +16,24 @@
         <p>Color: {{car.color}}</p>
         <p>Kms: {{car.kms}}</p>
     </div>
-    <button class="btn btn-success" @click="reserve">Reservar</button>
 </div>
 </template>
 
 <script>
 export default {
-  name: "Details",
+  name: "Reserve",
   props: {
     show: Boolean,
     car: Object
   },
+  data() {
+    return {
+      comfirmReserve: true
+    };
+  },
   methods: {
     close() {
       this.$emit("close");
-    },
-    reserve(){
-      this.$router.replace('Reserve')
-      
     }
   }
 };

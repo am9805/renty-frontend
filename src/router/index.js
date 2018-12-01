@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Login from './../components/Login.vue'
 import Home from './../components/Home.vue'
 import Profile from '../components/Profile.vue'
+import Reserve from './../components/Reserve.vue'
 import auth from "../services/auth";
 
 
@@ -42,7 +43,14 @@ let router = new Router({
             meta: {
                 requireAuth: true
             }
-        },
+        },{
+            path: '/reserve',
+            name: 'Reserve',
+            component: Reserve,
+            meta: {
+                requireAuth: true
+            }
+        }
         
     ]
 });

@@ -45,4 +45,9 @@ export default {
   background-color: rgb(201, 209, 211);
   margin-top: 90%;
 }
+
+.modal-backdrop{
+  background-color: rgba(0, 0, 0, 0.5);
+
+}
 </style>
