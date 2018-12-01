@@ -105,7 +105,7 @@ export default {
     async clickForDetail(carId, rentalId) {
       let url;
       switch (rentalId) {
-        case 1: {
+        case 967543461: {
           url = `https://renty-web.herokuapp.com/cars/${carId}`;
           break;
         }
