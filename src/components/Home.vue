@@ -21,7 +21,7 @@
                     <div class="form-group col-md-6">
                          <label class="label" for="pickup-point">Pickup point</label>
                         <select id="pickup-point" class="form-control" v-model="pickup">
-                        <option selected>aeropuesto</option>
+                        <option selected>Aeropuerto</option>
                        </select>
                     </div>
                     <div class="form-group col-md-6">
