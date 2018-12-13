@@ -1,4 +1,4 @@
-<template > 
+<template id="back"> 
     <div id="app" class="app">
         <Header/>
         <img alt="Vue logo" src="./assets/Renty-mid.png">

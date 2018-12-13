@@ -1,76 +1,81 @@
 <template>
-<div>  
-
-<div class="card" > 
-<div class="container"> 
-    <div class="panel-defoutl">
-    <p class="h1">Renty</p>
-    <p class="h2">Consigue tu auto al mejor precio. Reserva ya en Renty.com</p>
-    <form name="Form-search">
+  <div>
+    <div class="card">
+      <div class="container">
+        <div class="panel-defoutl">
+          <p class="h1">Renty</p>
+          <p class="h2">Consigue tu auto al mejor precio. Reserva ya en Renty.com</p>
+          <form name="Form-search">
             <div class="form-row">
-                <div class="form-group col-md-6">
-                   <label class="label" for="typecar">Tipo de vehiculo</label>
-                        <select  id="typecar" class="form-control" v-model="type">
-                        <option>Economico</option>
-                        <option>Compacto</option>
-                        <option>SUV</option>
-                        <option>Lujo</option>
-                        
-                       </select>
-                </div>
-                    <div class="form-group col-md-6">
-                         <label class="label" for="pickup-point">Pickup point</label>
-                        <select id="pickup-point" class="form-control" v-model="pickup">
-                        <option selected>Aeropuerto</option>
-                       </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                         <label class="label" for="date-start">Fecha inicio</label>
-                            
-                        <input id='date-start' type="date" class="form-control" v-model="from">
-                            
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="label" for="date-finish">Fecha fin</label>                            
-                        <input id='date-finish' type="date" class="form-control" v-model="to">                            
-                    </div>
+              <div class="form-group col-md-6">
+                <label class="label" for="typecar">Tipo de vehiculo</label>
+                <select id="typecar" class="form-control" v-model="type">
+                  <option>Economico</option>
+                  <option>Compacto</option>
+                  <option>SUV</option>
+                  <option>Lujo</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="label" for="pickup-point">Pickup point</label>
+                <select id="pickup-point" class="form-control" v-model="pickup">
+                  <option selected>Aeropuerto</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="label" for="date-start">Fecha inicio</label>
+                
+                <input id="date-start" type="date" class="form-control" v-model="from">
+              </div>
+              <div class="form-group col-md-6">
+                <label class="label" for="date-finish">Fecha fin</label>
+                <input id="date-finish" type="date" class="form-control" v-model="to">
+              </div>
             </div>
-        </form>    
+          </form>
 
-        <button @click="CaptureValues" class="btn btn-primary"  >Buscar </button>    
-  </div>
-  </div>
-</div>
-<div v-show='this.isSearch' class="list">
-  <div class="list-group" v-for="carFromList in listCars" :key=carFromList.id >  
-       
-    <h5 class="car-title">{{carFromList.brand}}</h5>
-    <p class="card-text">Tipo: {{carFromList.type}}</p>
-    <p class="card-text">Modelo: {{carFromList.model}}</p>
-    <p class="card-text">Precio: ${{carFromList.price}}</p> 
-    <div class="image">
-      <td><img :src="carFromList.thumbnail" width="100vw"/></td>
-    </div>
-    <div class="btn-detalle">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#details" @click="clickForDetail(carFromList.id, carFromList.rental.id)">Detalle</button>
-    </div> 
-  </div>
-</div>
-<div id="details" class="modal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-        <div class="modal-body">
-          <Details :show="showDetail" :car="specificCar"/>
+          <button @click="CaptureValues" class="btn btn-primary">Buscar</button>
         </div>
-      
+      </div>
+    </div>
+    <div v-show="this.isSearch" class="list">
+      <div class="list-group" v-for="carFromList in listCars" :key="carFromList.id">
+        <h5 class="car-title">{{carFromList.brand}}</h5>
+        <p class="card-text">Tipo: {{carFromList.type}}</p>
+        <p class="card-text">Modelo: {{carFromList.model}}</p>
+        <p class="precio">
+          <strong>Precio: ${{carFromList.price}}</strong>
+        </p>
+        <div class="image">
+          <td class="image-container">
+            <img :src="carFromList.thumbnail" width="100vw">
+          </td>
+        </div>
+        <div class="btn-detalle">
+          <button
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#details"
+            @click="clickForDetail(carFromList.id, carFromList.rental.id)"
+          >Detalle</button>
+        </div>
+      </div>
+    </div>
+    <div id="details" class="modal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <Details :show="showDetail" :car="specificCar"/>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
 </template>
 
 <script>
@@ -99,7 +104,6 @@ export default {
   },
   created: function() {
     //this.SearchTypes();
-    
   },
   methods: {
     async clickForDetail(carId, rentalId) {
@@ -109,7 +113,7 @@ export default {
           url = `https://renty-web.herokuapp.com/cars/${carId}`;
           break;
         }
-        case 123456789: {          
+        case 123456789: {
           url = `https://renty-ruby.herokuapp.com/cars/${carId}`;
           break;
         }
@@ -117,13 +121,13 @@ export default {
           url = `https://renty-ruby.herokuapp.com/cars/${carId}`;
         }
       }
-      
+
       const apiAnswer = await Axios({
         method: "get",
         url: url
       });
       this.specificCar = apiAnswer.data;
-         
+
       this.showDetail = true;
     },
     CaptureValues() {
@@ -132,22 +136,18 @@ export default {
       this.isSearch = true;
     },
     SearchTypes() {
-
       Axios.get("https://renty-web.herokuapp.com/cars/").then(response => {
         let cars = response.data;
-        
-        
-        
+
         for (let i = 0; i < cars.length; i++) {
           if (!this.listCarsT.includes(cars[i].type)) {
             this.listCarsT.push(cars[i].type);
-            
           }
         }
       });
       Axios.get("https://renty-ruby.herokuapp.com/cars/").then(response => {
         let cars = response.data;
-        
+
         for (let i = 0; i < cars.length; i++) {
           if (!this.listCarsT.includes(cars[i].type)) {
             this.listCarsT.push(cars[i].type);
@@ -155,7 +155,7 @@ export default {
         }
       });
       Axios.get("https://renty-scala.herokuapp.com/cars/").then(response => {
-        let cars = response.data;               
+        let cars = response.data;
         for (let i = 0; i < cars.length; i++) {
           if (!this.listCarsT.includes(cars[i].type)) {
             this.listCarsT.push(cars[i].type);
@@ -164,27 +164,24 @@ export default {
       });
     },
     SearchRenty() {
-      this.listCars=[];
-      let counter =0;
+      this.listCars = [];
+      let counter = 0;
       Axios.get(`https://renty-web.herokuapp.com/cars/${this.url}`).then(
         response => {
-          let cars = response.data;      
-          for (let i = 0; i < cars.length; i++){
-            this.listCars.push(cars[i]);
-                  
-          }
-          
-        }
-      );
-      
-      Axios.get(`https://renty-ruby.herokuapp.com/cars/${this.url}`).then(
-        response => {
-          let cars = response.data; 
-                   
+          let cars = response.data;
           for (let i = 0; i < cars.length; i++) {
             this.listCars.push(cars[i]);
           }
-          
+        }
+      );
+
+      Axios.get(`https://renty-ruby.herokuapp.com/cars/${this.url}`).then(
+        response => {
+          let cars = response.data;
+
+          for (let i = 0; i < cars.length; i++) {
+            this.listCars.push(cars[i]);
+          }
         }
       );
       Axios.get(`https://renty-scala.herokuapp.com/cars/${this.url}`).then(
@@ -209,7 +206,13 @@ export default {
   position: relative;
   color: #fff;
 }
-
+.precio {
+  color: #922b21;
+  font-size: 20px;
+  font-family: "Raleway", sans-serif;
+  text-align: left;
+  margin-left: 37%;
+}
 .h1 {
   font-family: "Lato", sans-serif;
   font-size: 40px;
@@ -311,8 +314,10 @@ export default {
   margin-bottom: 10px;
 }
 .image img {
-  height: 200px;
-  width: 200px;
+  width: 230px;
+  height: 190px;
+  margin-bottom: 5px;
+  border-radius: 5px;
 }
 
 .list {
@@ -330,5 +335,11 @@ export default {
 }
 .select {
   font-family: "Raleway", sans-serif;
+}
+
+.image-container {
+  height: 200px;
+  width: 100%;
+  padding-bottom: 15px;
 }
 </style>
