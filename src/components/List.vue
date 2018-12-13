@@ -54,11 +54,10 @@ export default {
       Axios.get("https://api.myjson.com/bins/nau0y").then(
         response => {
           this.listCars = response.data;
-          console.log(this.listCars);
-        },
-        error => {
-          // console.log(error);
         }
+        // error => {
+        //   // console.log(error);
+        // }
       );
     }
   }
@@ -166,8 +165,4 @@ margin-top: 22px;
     margin-bottom: 80%;
     margin-top: 20px;
 }
-
-
-
-
 </style>

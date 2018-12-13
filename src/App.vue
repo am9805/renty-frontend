@@ -30,6 +30,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  height: 600px;
 }
 .app img {
     margin-top: 5px;
@@ -41,7 +42,6 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 70px; /* Height of the footer */
   background-color: rgb(201, 209, 211);
   margin-top: 90%;
 }

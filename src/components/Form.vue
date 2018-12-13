@@ -1,5 +1,4 @@
 <template>
-
         <form name="Form-search">
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -32,36 +31,23 @@
 </template>
 
 <script>
-
-
-
 export default {
   name: "Form",
   components: {},
-  methods: {
-    
-  },
-  
-  
+  methods: {}
 };
 </script>
 
 <style scoped>
-
-.label{
-    color: #fff;
-    font-family: "Raleway", sans-serif;
+.label {
+  color: #fff;
+  font-family: "Raleway", sans-serif;
 }
-.form-control{
-    height: 33px;
-    width: 380px;
-    
-   
+.form-control {
+  height: 33px;
+  width: 380px;
 }
-.select{
-    font-family: "Raleway", sans-serif;
-    
+.select {
+  font-family: "Raleway", sans-serif;
 }
-
-
 </style>

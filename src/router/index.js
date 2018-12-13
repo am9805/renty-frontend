@@ -5,7 +5,7 @@ import Login from './../components/Login.vue'
 import Home from './../components/Home.vue'
 import Profile from '../components/Profile.vue'
 import auth from "../services/auth";
-import List from './../components/List.vue'
+
 
 
 
@@ -43,11 +43,7 @@ let router = new Router({
                 requireAuth: true
             }
         },
-        {
-            path: '/List',
-            name: 'List',
-            component: List
-        },
+        
     ]
 });
 
