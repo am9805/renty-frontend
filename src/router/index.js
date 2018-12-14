@@ -5,6 +5,7 @@ import Login from './../components/Login.vue'
 import Home from './../components/Home.vue'
 import Profile from '../components/Profile.vue'
 import auth from "../services/auth";
+import Booking from "../components/Booking";
 
 
 
@@ -39,6 +40,14 @@ let router = new Router({
             path: '/profile',
             name: 'Profile',
             component: Profile,
+            meta: {
+                requireAuth: true
+            }
+        },
+        {
+            path: '/booking',
+            name: 'Reservas',
+            component: Booking,
             meta: {
                 requireAuth: true
             }

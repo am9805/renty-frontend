@@ -2,11 +2,12 @@
     <nav class="nav navbar ">
         <div class="navbar-brand">
             <img alt="Renty logo" src="../assets/Renty-ico.png">
-            <a  href="/home">RENTY</a>
+            <router-link to="/home">RENTY</router-link>
         </div>
         
         <form class="form-inline">
             <router-link v-if="!user" to="/login">Registrarse/Ingresar</router-link>
+            <router-link v-if="user" to="/booking">Reservas</router-link>
             <router-link v-if="user" to="/profile">{{user.displayName}}</router-link>
         </form>
     </nav>
