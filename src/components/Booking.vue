@@ -3,6 +3,9 @@
         <b-modal id="modalsm" size="sm" title="Resultado" ok-only>
             {{mensaje}}
         </b-modal>
+        <span v-if="this.listBooking.length === 0">
+            No tienes reservas activas.
+        </span>
         <div class="list-group" v-for="booking in listBooking" :key=booking.id>
             <h5 class="car-title">{{booking.pickupDate}}</h5>
             <p class="card-text">Lugar de recogida: {{booking.pickup}}</p>
@@ -34,19 +37,18 @@
         data() {
             return {
                 listBooking: [],
-                urls: ['https://api.myjson.com/bins/p1up6/',
-                    'https://api.myjson.com/bins/p1up6/',
-                    'https://api.myjson.com/bins/p1up6/'],
+                urls: ['https://renty-ruby.herokuapp.com/booking/',
+                    'http://renty-web.herokuapp.com/booking/'],
                 mensaje: 'Cargando, por favor espere...'
             };
         },
         created: function () {
             auth.user().getIdToken().then(value => {
                 this.urls.forEach(url => {
-                    Axios.get(url + '?tokenId=' + value).then(response => {
+                    Axios.get(url + value).then(response => {
                         let list = response.data;
                         list.forEach(item => {
-                            item.url = url;
+                            item.url = (' ' + url).slice(1);
                             this.listBooking.push(item);
                         });
                     });
@@ -55,13 +57,18 @@
         },
         methods: {
             deleteBooking(booking) {
-                Axios.delete(booking.url + booking.bookingId).then(responce => {
-                    this.listBooking = this.listBooking.filter(item => {
-                        return item.bookingId !== booking.bookingId && item.rental.id !== booking.rental.id;
+                auth.user().getIdToken().then(token => {
+                    Axios.put(booking.url, {
+                        token: token,
+                        bookingId: booking.bookingId
+                    }).then(responce => {
+                        this.listBooking = this.listBooking.filter(item => {
+                            return item.bookingId !== booking.bookingId && item.rental.id !== booking.rental.id;
+                        });
+                        this.mensaje = 'Reserva cancelada correctamente';
+                    }, error => {
+                        this.mensaje = `La reserva no pudo ser cancelada, intentalo de nuevo mas tarde, Error realizando peticion a: ${url}, Mensaje error: ${error}` ;
                     });
-                    this.mensaje = 'Reserva cancelada correctamente';
-                }, error => {
-                    this.mensaje = 'La reserva no pudo ser cancelada, intentalo de nuevo mas tarde';
                 });
             }
         }

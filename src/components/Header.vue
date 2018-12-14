@@ -2,7 +2,7 @@
     <nav class="nav navbar ">
         <div class="navbar-brand">
             <img alt="Renty logo" src="../assets/Renty-ico.png">
-            <a  href="/home">RENTY</a>
+            <router-link to="/home">RENTY</router-link>
         </div>
         
         <form class="form-inline">
